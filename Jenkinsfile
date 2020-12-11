@@ -1,9 +1,9 @@
 pipeline {
     environment {
         VERSION = "latest"
-        PROJECT = "sample-java"
+        PROJECT = "app_repo"
         IMAGE = "$PROJECT:$VERSION"
-        ECRURL = "https://683294139580.dkr.ecr.us-east-1.amazonaws.com/sample-java"
+        ECRURL = "https://683294139580.dkr.ecr.us-east-1.amazonaws.com/app_repo"
         ECRCRED = "ecr:us-east-1:aws_ecr_cred"
     }
        
@@ -69,7 +69,7 @@ pipeline {
                 script {
                     docker.withRegistry(ECRURL, ECRCRED)
                         {
-                            sh 'aws ecr put-image-scanning-configuration --repository-name sample-java --image-scanning-configuration scanOnPush=true --region us-east-1'
+                            sh 'aws ecr put-image-scanning-configuration --repository-name app_repo --image-scanning-configuration scanOnPush=true --region us-east-1'
                             docker.image(IMAGE).push()
                  
                         }
